@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vacation Destination</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="header"><h1 class="headercontainer">Vacation Destinations</h1></div>
+    <div id="outercontainer">
+        <div id="formcontainer" class="innercontainerform">
+            <!--Start Form Container-->
+            
+            <form id="destForm">
+                <label for="dest_name" class="form-label">Destination Name</label>
+                <input id="dest_name" class="form-control" name="dest_name" type="text" placeholder="Enter the name of the destination" required>
+
+                <label for="location" class="form-label">  Location  </label>
+                 <input id="location" class="form-control" name="location" type="text" placeholder="Where is it located?" required>
+
+                 <label for="photoURL" class="form-label">Photo URL</label>
+                <input id="photoURL" class="form-control" name="photoURL" type="url" placeholder="Enter an image URL of the place">
+
+                <label for="desc" class="form-label">Description</label>
+                <input id="desc" class="form-control" name="desc" type="textarea" placeholder="Destination Description">
+                <input id="submitform" type="submit" class="btn btn-primary submit_btn" value="Add to List">
+            </form>
+            <!-- End Form Container-->
+        </div>
+        <div id="destcontainer" class="innercontainerwishlist"><p id="title" class="title">Enter Destination Details</p>
+            <div class="outercardcontainer">
+        <div id="cardcontainer"></div>
+        </div></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
