@@ -101,7 +101,7 @@ async function editCard(evt){
     }
     if (newDest !== "" && newDest !== null) {
        await GrabImage(newDest)
-        oldPhoto.setAttribute("src", GrabImage(newDest))
+        oldPhoto.setAttribute("src", photo)
     } 
 
     
