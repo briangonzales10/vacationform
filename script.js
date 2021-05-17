@@ -1,8 +1,11 @@
 const destination = document.getElementById("destForm")
 destination.addEventListener("submit", handleForm)
 
+ var photo = "https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1362&q=80";
 
-function handleForm(evt) {
+
+
+async function handleForm(evt) {
 evt.preventDefault()
 const form = evt.target
 
@@ -10,22 +13,19 @@ const form = evt.target
 const dest = form.dest_name.value
 const loc = form.location.value
 //Check PhotoURL for blank. If blank, insert a default photoURL
-const photo = (form.photoURL.value === "") ? "https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1362&q=80" : form.photoURL.value
+//const photo = (form.photoURL.value === "") ? "https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1362&q=80" : form.photoURL.value
 const desc = form.desc.value
 
-
+    
+ await GrabImage(dest);
 //Create Functions For Card
     // Parent DIV for each card inside the "destcontainer"
-    // Create Card DIV for DestName/Location, Photo, Description, Delete button
-    //Once created, insert card into "destcontainer"
-
-
 
     let card = document.createElement("div");
     card.setAttribute("class","card")
     card.setAttribute("style", "width: 18rem;")
 
-    //Create a delete button
+  
 
 
     card.innerHTML = `
@@ -41,9 +41,24 @@ const desc = form.desc.value
     
     card.addEventListener("click", buttonHandler)
 
+
 // After submit, replace "Enter Destination Details" with "Wishlist" on Title
 document.getElementById("title").innerText = "Wishlist "
 resetForm(evt)
+
+}
+
+async function GrabImage(destination) {
+    //Unsplash Images
+
+const API = `https://api.unsplash.com/search/photos/?client_id=9xB6KzPdxq603YtE7BwTp5OsWNjOrLPRsSw_4XWKW0A&query=`
+let dest = destination;
+const searchURL = `${API}${dest}`
+let ind = Math.floor(Math.random() * 10)
+return fetch(searchURL)
+    .then((response) => response.json())
+    .then((pics) =>  photo = (pics.results[ind].urls.small)); // returns Array of objects
+    
 }
 
 
@@ -63,19 +78,19 @@ function deleteCard(evt){
     event.parentElement.parentElement.remove()
 }
     
-function editCard(evt){
+async function editCard(evt){
     const event = evt.target;
     const cardBody = event.parentElement.children
 
     console.log(event.parentElement.parentElement.children[0]);
     const oldDest = cardBody[0];
     const oldLoc = cardBody[1];
-    const oldPhoto = event.parentElement.parentElement.children[0];
+    //const oldPhoto = event.parentElement.parentElement.children[0];
     const oldDesc = cardBody[2];
 
     const newDest = prompt("Please enter a new Destination or cancel")
     const newLoc = prompt("Please enter a new Location or cancel")
-    const newPhoto = prompt("Please enter a new PhotoURL or cancel")
+    // const newPhoto = prompt("Please enter a new PhotoURL or cancel")
     const newDesc = prompt("Please enter a new description or cancel")
 
     if (newDest !== "") {
@@ -84,8 +99,9 @@ function editCard(evt){
     if (newLoc !== "") {
         oldLoc.innerText = newLoc;
     }
-    if (newPhoto !== "" && newPhoto !== null) {
-        oldPhoto.setAttribute("src", newPhoto)
+    if (newDest !== "" && newDest !== null) {
+       await GrabImage(newDest)
+        oldPhoto.setAttribute("src", GrabImage(newDest))
     } 
 
     
@@ -95,14 +111,13 @@ function editCard(evt){
 
 }
 
+
+
 //Reset Form to start once again
 function resetForm(evt) {
     const form = evt.target
     form.dest_name.value = ""
     form.location.value = ""
-    form.photoURL.value = ""
+//    form.photoURL.value = ""
     form.desc.value = ""
 }
-
-
-//Create delete function that deletes parent container
