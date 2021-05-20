@@ -1,7 +1,8 @@
+const dbURL = 'https://brian-destinations.herokuapp.com/destinations/'
+
 const destination = document.getElementById("destForm")
 destination.addEventListener("submit", handleForm)
 
- var photo = "https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1362&q=80";
 
 
 
@@ -13,21 +14,15 @@ const form = evt.target
 const dest = form.dest_name.value
 const loc = form.location.value
 const desc = form.desc.value
-//Check PhotoURL for blank. If blank, insert a default photoURL
-//const photo = (form.photoURL.value === "") ? "https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1362&q=80" : form.photoURL.value
+let photo = await GrabImage(dest);
 
 
-    
- await GrabImage(dest);
 //Create Functions For Card
     // Parent DIV for each card inside the "destcontainer"
 
     let card = document.createElement("div");
     card.setAttribute("class","card")
     card.setAttribute("style", "width: 18rem;")
-
-  
-
 
     card.innerHTML = `
                     <img src="${photo}" class="card-img-top" alt="${dest}">
@@ -58,7 +53,7 @@ const searchURL = `${API}${dest}`
 let ind = Math.floor(Math.random() * 10)
 return fetch(searchURL)
     .then((response) => response.json())
-    .then((pics) =>  photo = (pics.results[ind].urls.small)); // returns Array of objects
+    .then((pics) =>  pics.results[ind].urls.small); // returns Array of objects
     
 }
 
@@ -112,8 +107,6 @@ async function editCard(evt){
 
 }
 
-
-
 //Reset Form to start once again
 function resetForm(evt) {
     const form = evt.target
@@ -122,3 +115,10 @@ function resetForm(evt) {
 //    form.photoURL.value = ""
     form.desc.value = ""
 }
+
+
+//Reach out to API and Return DB Array of destinations
+fetch(dbURL)
+    .then((response) => response.json())
+    .then((pics) => console.log(pics) );
+//Create Cards out of array elements in Database

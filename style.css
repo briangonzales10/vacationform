@@ -5,6 +5,7 @@ html, body {
     height: 100%;
 }
 body {
+    background-color: #F2E0BB;
     background-image: url(./images/lopez-robin-apax4M-4kFI-unsplash.jpg);
     background-repeat: no-repeat;
 }
@@ -97,9 +98,6 @@ input[type=textarea] {
 
 
 @media screen and (max-width: 500px) {
-    body {
-        background-color: #F2E0BB;
-    }
 
     .innercontainerform {
         width: 100vw;
