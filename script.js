@@ -12,9 +12,10 @@ const form = evt.target
 //Pull Form Info
 const dest = form.dest_name.value
 const loc = form.location.value
+const desc = form.desc.value
 //Check PhotoURL for blank. If blank, insert a default photoURL
 //const photo = (form.photoURL.value === "") ? "https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1362&q=80" : form.photoURL.value
-const desc = form.desc.value
+
 
     
  await GrabImage(dest);
@@ -100,7 +101,7 @@ async function editCard(evt){
         oldLoc.innerText = newLoc;
     }
     if (newDest !== "" && newDest !== null) {
-       await GrabImage(newDest)
+       const photo = await GrabImage(newDest)
         oldPhoto.setAttribute("src", photo)
     } 
 
