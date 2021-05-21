@@ -18,7 +18,11 @@ for (dest of destinations) {
     const {id, name, location, photo, description } = dest
 
     createCard(id, name, location, photo, description)
+    console.log(destinations);
 
+    }
+if (destinations !== undefined) {
+        document.getElementById("title").innerText = "Wishlist "
     }
 }
 
@@ -33,9 +37,12 @@ const location = form.location.value
 const description = form.desc.value
 // let photo = await GrabImage(dest);
 
+console.log(document.getElementById('title'));
+
+
 postDestination(name, location, description)
 // After submit, replace "Enter Destination Details" with "Wishlist" on Title
-document.getElementById("title").innerText = "Wishlist "
+
 resetForm(evt)
 }
 
