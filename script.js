@@ -62,7 +62,7 @@ function postDestination(nameArg, locationArg, descriptionArg) {
         
 }
 
-//Create Functions For Card
+//Create Functions For Cards
     // Parent DIV for each card inside the "destcontainer"
 function createCard(id, name, location, photo, description) {
     let card = document.createElement("div");
