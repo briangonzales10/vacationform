@@ -21,6 +21,7 @@ for (dest of destinations) {
     console.log(destinations);
 
     }
+// Replace "Enter Destination Details" with "Wishlist" on Title if DB isn't empty
 if (destinations !== undefined) {
         document.getElementById("title").innerText = "Wishlist "
     }
@@ -35,13 +36,8 @@ const form = evt.target
 const name = form.dest_name.value
 const location = form.location.value
 const description = form.desc.value
-// let photo = await GrabImage(dest);
-
-console.log(document.getElementById('title'));
-
 
 postDestination(name, location, description)
-// After submit, replace "Enter Destination Details" with "Wishlist" on Title
 
 resetForm(evt)
 }
@@ -191,7 +187,5 @@ function resetForm(evt) {
     const form = evt.target
     form.dest_name.value = ""
     form.location.value = ""
-//    form.photoURL.value = ""
     form.desc.value = ""
 }
-
