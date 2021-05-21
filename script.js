@@ -83,17 +83,17 @@ function createCard(id, name, location, photo, description) {
     card.addEventListener("click", buttonHandler)
 }
 
-async function GrabImage(destination) {
-//Unsplash Images
-const API = `https://api.unsplash.com/search/photos/?client_id=9xB6KzPdxq603YtE7BwTp5OsWNjOrLPRsSw_4XWKW0A&query=`
-let dest = destination;
-const searchURL = `${API}${dest}`
-let ind = Math.floor(Math.random() * 10)
-return fetch(searchURL)
-    .then((response) => response.json())
-    .then((pics) =>  pics.results[ind].urls.small); // returns Array of objects
+// async function GrabImage(destination) {
+// //Unsplash Images
+// const API = `https://api.unsplash.com/search/photos/?client_id=9xB6KzPdxq603YtE7BwTp5OsWNjOrLPRsSw_4XWKW0A&query=`
+// let dest = destination;
+// const searchURL = `${API}${dest}`
+// let ind = Math.floor(Math.random() * 10)
+// return fetch(searchURL)
+//     .then((response) => response.json())
+//     .then((pics) =>  pics.results[ind].urls.small); // returns Array of objects
     
-}
+// }
 
 function buttonHandler(evt) {
     const event = evt.target
@@ -119,35 +119,63 @@ function deleteCard(evt){
 }
     
 async function editCard(evt){
-    const event = evt.target;
-    const cardBody = event.parentElement.children
+    const id = evt.target.getAttribute("uid");
 
-    console.log(event.parentElement.parentElement.children[0]);
-    const oldDest = cardBody[0];
-    const oldLoc = cardBody[1];
-    //const oldPhoto = event.parentElement.parentElement.children[0];
-    const oldDesc = cardBody[2];
-
-    const newDest = prompt("Please enter a new Destination or cancel")
+    const newName = prompt("Please enter a new Destination or cancel")
     const newLoc = prompt("Please enter a new Location or cancel")
-    // const newPhoto = prompt("Please enter a new PhotoURL or cancel")
     const newDesc = prompt("Please enter a new description or cancel")
+    const newPhoto = ""
+    const newDest = {
 
-    if (newDest !== "") {
-        oldDest.innerText = newDest;
+        name: newName,
+        location: newLoc,
+        photo: newPhoto,
+        description: newDesc
     }
-    if (newLoc !== "") {
-        oldLoc.innerText = newLoc;
-    }
-    if (newDest !== "" && newDest !== null) {
-       const photo = await GrabImage(newDest)
-        oldPhoto.setAttribute("src", photo)
-    } 
+console.log(newDest);
+    const putURL = `${baseURL}/destinations/${id}`
+    fetch(putURL, {
+        method: "PUT",
+        body: JSON.stringify(newDest),
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8'
+        } 
+    })
+    .then((response) => {response.json()
+        console.log('heeeelp')})
+    .then(response => { 
+        location.reload()
+        })
+        
+
+
+
+    ////// OLD CODE BELOW//////
+    // const cardBody = event.parentElement.children
+
+    // console.log(event.parentElement.parentElement.children[0]);
+    // const oldDest = cardBody[0];
+    // const oldLoc = cardBody[1];
+    // //const oldPhoto = event.parentElement.parentElement.children[0];
+    // const oldDesc = cardBody[2];
 
     
-    if (newDesc !== "") {
-        oldDesc.innerText = newDesc;
-    }
+
+    // if (newDest !== "") {
+    //     oldDest.innerText = newDest;
+    // }
+    // if (newLoc !== "") {
+    //     oldLoc.innerText = newLoc;
+    // }
+    // if (newDest !== "" && newDest !== null) {
+    //    const photo = await GrabImage(newDest)
+    //     oldPhoto.setAttribute("src", photo)
+    // } 
+
+    
+    // if (newDesc !== "") {
+    //     oldDesc.innerText = newDesc;
+    // }
 
 }
 

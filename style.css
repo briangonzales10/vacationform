@@ -98,7 +98,17 @@ input[type=textarea] {
 
 
 @media screen and (max-width: 500px) {
-
+    #header {
+   
+        background-repeat: no-repeat;
+    
+        width: 100vw;
+        height: 75px;
+        
+      }
+    .headercontainer{
+        margin: 5px;
+    }
     .innercontainerform {
         width: 100vw;
         padding: 1px 1px 5px 1px;
